@@ -1,6 +1,12 @@
 <template>
   <div class="profile-menu">
-    <button class="profile-menu__button" :class="{'profile-menu__button--active': isOpen}" type="button" @click="toggleMenu()">
+    <button
+      class="profile-menu__button"
+      :class="{'profile-menu__button--active': isOpen}"
+      type="button"
+      v-click-outside="hideMenu"
+      @click="toggleMenu"
+    >
       <img src="@/assets/svg/up-white.svg" :alt="$ml.get('menu')" :title="$ml.get('menu')" v-if="isOpen">
       <img src="@/assets/svg/down-white.svg" :alt="$ml.get('menu')" :title="$ml.get('menu')" v-else>
     </button>
@@ -14,6 +20,8 @@
 </template>
 
 <script>
+import ClickOutside from 'vue-click-outside'
+
 export default {
   name: 'ProfileMenu',
   data () {
@@ -34,7 +42,13 @@ export default {
   methods: {
     toggleMenu () {
       this.isOpen = (!this.isOpen)
+    },
+    hideMenu () {
+      this.isOpen = false
     }
+  },
+  directives: {
+    ClickOutside
   }
 }
 </script>
@@ -63,7 +77,7 @@ export default {
     list-style none
 
   &__link
-    display inline-block
+    display block
     padding 10px 20px
     font-size 14px
     line-height 16px

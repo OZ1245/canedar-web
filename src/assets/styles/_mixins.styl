@@ -1,25 +1,25 @@
 link(type)
   text-decoration none
 
-  if (type = 'l')
+  if (type == 'l')
     color cWhite
 
-  if (type = 'd')
+  if (type == 'd')
     color cGrayDark
 
   &:hover, &:focus
     text-decoration underline
 
-    if (type = 'l')
+    if (type == 'l')
       color cWhite
 
-    if (type = 'd')
+    if (type == 'd')
       color cGreenDark
 
   &:active
     text-decoration none
 
-    if (type = 'l' || type = 'd')
+    if (type == 'l' || type == 'd')
       color cGreenAccent
 
 toggleButton(c)

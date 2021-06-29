@@ -2,7 +2,9 @@
   <div id="app">
     <Header/>
 
-    <router-view/>
+    <main class="page">
+      <router-view/>
+    </main>
 
     <Footer/>
   </div>
@@ -22,4 +24,14 @@ export default {
 
 <style lang="stylus">
 @import 'assets/styles/global'
+
+#app
+  height 100vh
+  width 100vw
+  display flex
+  flex-direction column
+
+.page
+  height 100%
+  padding 60px 0
 </style>

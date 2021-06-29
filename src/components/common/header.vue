@@ -4,6 +4,10 @@
       <router-link to="/" class="header__link-home" v-text="$ml.get('home')"></router-link>
     </div>
 
+    <div class="header__middle">
+      <p class="header__date">{{ selectedDate }}</p>
+    </div>
+
     <div class="header__right">
       <Profile/>
     </div>
@@ -12,11 +16,21 @@
 
 <script>
 import Profile from '@/components/common/profile'
+import { mapGetters } from 'vuex'
+import moment from 'moment'
 
 export default {
   name: 'Header',
   components: {
     Profile
+  },
+  computed: {
+    ...mapGetters([
+      'selectedDate'
+    ]),
+    selectedDate () {
+      return moment().set(this.$store.getters.selectedDate).format('MMMM, YYYY')
+    }
   }
 }
 </script>
@@ -36,4 +50,9 @@ export default {
     font-size 18px
     line-height 20px
     link('l')
+
+  &__date
+    font-size 18px
+    line-height 20px
+    color cWhite
 </style>

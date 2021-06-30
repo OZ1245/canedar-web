@@ -5,7 +5,8 @@
     </div>
 
     <div class="header__middle">
-      <p class="header__date">{{ selectedDate }}</p>
+      <!-- TODO @ Кнопка переключения месяца и года -->
+      <p class="header__date">{{ date }}</p>
     </div>
 
     <div class="header__right">
@@ -17,7 +18,6 @@
 <script>
 import Profile from '@/components/common/profile'
 import { mapGetters } from 'vuex'
-import moment from 'moment'
 
 export default {
   name: 'Header',
@@ -25,11 +25,11 @@ export default {
     Profile
   },
   computed: {
-    ...mapGetters([
-      'selectedDate'
-    ]),
-    selectedDate () {
-      return moment().set(this.$store.getters.selectedDate).format('MMMM, YYYY')
+    ...mapGetters({
+      selectedDate: 'selectedDate'
+    }),
+    date () {
+      return this.selectedDate.format('MMMM, YYYY')
     }
   }
 }

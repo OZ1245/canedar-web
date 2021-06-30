@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import Home from '../views/Home.vue'
+import Auth from '../views/Auth.vue'
 import Calendar from '../views/Calendar.vue'
 
 Vue.use(VueRouter)
@@ -8,6 +9,11 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
+    name: 'Auth',
+    component: Auth
+  },
+  {
+    path: '/calendar',
     name: 'Calendar',
     component: Calendar
   },

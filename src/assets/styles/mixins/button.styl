@@ -1,3 +1,12 @@
+resetButton()
+  display flex
+  padding 0
+  margin 0
+  border 0
+  background none
+  box-sizing border-box
+  cursor pointer
+
 toggleButton(c)
   display flex
   width 32px
@@ -27,15 +36,6 @@ toggleButton(c)
   &--active
     border-color c
 
-resetButton()
-  display flex
-  padding 0
-  margin 0
-  border 0
-  background none
-  box-sizing border-box
-  cursor pointer
-
 linkButton()
   resetButton()
   display inline-block
@@ -44,8 +44,3 @@ linkButton()
 
   &:hover
     text-decoration none
-
-  &:focus
-    text-decoration none
-    outline 1px dashed cGrayLight
-    color cGreenAccent

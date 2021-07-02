@@ -3,14 +3,14 @@
     <input
       type="text"
       class="auth__field"
-      v-model="login"
+      v-model="loginModel"
       :placeholder="$ml.get('input_login_text')"
     >
 
     <input
-      type="text"
+      type="password"
       class="auth__field"
-      v-model="password"
+      v-model="passwordModel"
       :placeholder="$ml.get('input_password_text')"
     >
 
@@ -30,8 +30,8 @@ export default {
   name: 'AuthForm',
   data () {
     return {
-      login: '',
-      password: ''
+      loginModel: '',
+      passwordModel: ''
     }
   },
   methods: {
@@ -43,3 +43,18 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../../assets/styles/_variables'
+@import '../../assets/styles/_mixins'
+
+.auth
+  display flex
+  flex-direction column
+
+  &__field
+    formField()
+
+  &__submit
+    formSubmit()
+</style>

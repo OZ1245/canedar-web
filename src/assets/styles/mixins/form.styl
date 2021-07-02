@@ -1,0 +1,50 @@
+inputReset()
+  display inline-block
+  margin 0
+  padding 0
+  box-sizing border-box
+  border none
+  background none
+
+formField()
+  inputReset()
+  width 100%
+  max-width 500px
+  height auto
+  padding 10px 20px
+  margin-bottom 15px
+  border 1px solid cGreen
+  border-radius 4px
+  fontMiddleNormal()
+  color cGrayDark
+
+  &:focus, &:focus-visible
+    outline none
+
+formSubmit()
+  resetButton()
+  fontMiddleNormal()
+  width auto
+  height auto
+  padding 10px 20px
+  margin auto
+  background-color cGreen
+  border 1px solid cGreen
+  border-radius 4px
+  color cWhite
+  transition background-color .3s, color .3s
+
+  &:hover
+    background-color cWhite
+    color cGreen
+    transition background-color .15s, color .15s
+
+  &:active
+    color cWhite
+    background-color cGreenDark
+    border-color cGreenDark
+    transition background-color .15s, color .15s, border-color .15
+
+  &[disabled="disabled"]
+    border-color cGreenAccent
+    background-color cGreenAccent

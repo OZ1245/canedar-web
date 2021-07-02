@@ -1,16 +1,11 @@
 import gql from 'graphql-tag'
 
-export const userQuery = gql`
-  {
-    user @client {
-      login
-      password
-    }
+export const LOGGED_IN_USER = gql`
+query {
+  me {
+    id
+    login
+    email
   }
-`
-
-export const changeUserMutation = gql`
-  mutation($id: ID!) {
-    checkUser(id: $id) @client
-  }
+}
 `

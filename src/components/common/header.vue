@@ -26,7 +26,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      selectedDate: 'selectedDate'
+      selectedDate: 'selectedDate',
+      user: 'user'
     }),
     date () {
       return this.selectedDate.format('MMMM, YYYY')

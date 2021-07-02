@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'AuthForm',
   data () {
@@ -33,8 +35,10 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['login']),
     sendForm () {
-      // TODO
+      this.login(this.authDetails)
+        .then(() => this.$router.push({ name: 'Calendar' }))
     }
   }
 }

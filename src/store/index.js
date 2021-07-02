@@ -87,6 +87,7 @@ const moduleApollo = {
 
 export default new Vuex.Store({
   modules: {
-    date: moduleDate
+    date: moduleDate,
+    apollo: moduleApollo
   }
 })

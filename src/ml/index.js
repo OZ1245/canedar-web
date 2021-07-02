@@ -16,8 +16,11 @@ export default new MLCreate({
       profile_menu_logout: 'Logout',
       calendar_prev_month: 'Previous month: {prevMonth}',
       calendar_next_month: 'Next month: {nextMonth}',
-      auth_button_auth: 'Login',
-      auth_button_reg: 'Registration'
+      auth_text_auth: 'Log in',
+      auth_text_reg: 'Create account',
+      input_login_text: 'Login',
+      input_password_text: 'Password',
+      input_submit_text: 'Log in'
     }),
 
     new MLanguage('ru').create({
@@ -29,8 +32,11 @@ export default new MLCreate({
       profile_menu_logout: 'Выход',
       calendar_prev_month: 'Предыдущий месяц: {prevMonth}',
       calendar_next_month: 'Следующий: {nextMonth}',
-      auth_button_auth: 'Войти',
-      auth_button_reg: 'Регистрация'
+      auth_text_auth: 'Войти',
+      auth_text_reg: 'Регистрация',
+      input_login_text: 'Логин',
+      input_password_text: 'Пароль',
+      input_submit_text: 'Войти'
     })
   ]
 })

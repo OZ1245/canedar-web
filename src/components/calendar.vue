@@ -214,7 +214,7 @@ export default {
       background-color cRed
 
   &__button
-    reset-button()
+    resetButton()
     height 100%
     position absolute
     top 0

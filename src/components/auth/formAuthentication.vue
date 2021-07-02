@@ -1,5 +1,41 @@
 <template>
   <div class="auth">
-    auth
+    <input
+      type="text"
+      class="auth__field"
+      v-model="login"
+      :placeholder="$ml.get('input_login_text')"
+    >
+
+    <input
+      type="text"
+      class="auth__field"
+      v-model="password"
+      :placeholder="$ml.get('input_password_text')"
+    >
+
+    <button
+      type="button"
+      class="auth__submit"
+      v-text="$ml.get('input_submit_text')"
+      @click="sendForm()"
+    ></button>
   </div>
 </template>
+
+<script>
+export default {
+  name: 'AuthForm',
+  data () {
+    return {
+      login: '',
+      password: ''
+    }
+  },
+  methods: {
+    sendForm () {
+      // TODO
+    }
+  }
+}
+</script>

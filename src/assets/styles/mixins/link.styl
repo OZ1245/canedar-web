@@ -1,0 +1,29 @@
+link(type)
+  text-decoration none
+
+  if (type == 'l')
+    color cWhite
+
+  if (type == 'd')
+    color cGrayDark
+
+  if (type == 'g')
+    color cGreen
+
+  &:hover, &:focus
+    text-decoration underline
+
+    if (type == 'l')
+      color cWhite
+
+    if (type == 'd')
+      color cGreenDark
+
+    if (type == 'g')
+      color cGreen
+
+  &:active
+    text-decoration none
+
+    if (type == 'l' || type == 'd' || type == 'g')
+      color cGreenAccent

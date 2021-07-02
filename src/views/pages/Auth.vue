@@ -1,6 +1,6 @@
 <template>
   <div class="auth-page">
-    Auth page
+    <p class="auth-page__intro">{{ introText }}</p>
     <div class="auth-page__forms">
       <component :is="form"></component>
       <button class="auth-page__link" type="button" v-text="buttonText" @click="toggleForms()"></button>
@@ -38,13 +38,24 @@ export default {
 
       return null
     },
-    buttonText () {
+    introText () {
       if (this.formMode === 'login') {
-        return this.$ml.get('auth_button_reg')
+        return this.$ml.get('auth_text_auth')
       }
 
       if (this.formMode === 'registration') {
-        return this.$ml.get('auth_button_auth')
+        return this.$ml.get('auth_text_reg')
+      }
+
+      return null
+    },
+    buttonText () {
+      if (this.formMode === 'login') {
+        return this.$ml.get('auth_text_reg')
+      }
+
+      if (this.formMode === 'registration') {
+        return this.$ml.get('auth_text_auth')
       }
 
       return null
@@ -69,3 +80,24 @@ export default {
   }
 }
 </script>
+
+<style lang="stylus">
+@import '../../assets/styles/_variables'
+@import '../../assets/styles/_mixins'
+
+.auth-page
+  display flex
+  flex-direction column
+  justify-content center
+  align-items center
+  height 100%
+
+  &__intro
+    fontBigBold()
+    margin-bottom 20px
+    color cGreen
+
+  &__link
+    linkButton()
+    fontSmallNormal()
+</style>

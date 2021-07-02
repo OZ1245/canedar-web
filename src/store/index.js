@@ -10,15 +10,11 @@ const moduleDate = {
   },
   mutations: {
     changeDate (state, date) {
-      console.log(date)
-      // state.selectedDate = { ...state.selectedDate, ...date }
       state.selectedDate = date
-      console.log(state.selectedDate)
     }
   },
   getters: {
     selectedDate: state => {
-      console.log(state.selectedDate)
       return state.selectedDate
     }
   },

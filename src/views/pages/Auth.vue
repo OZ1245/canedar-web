@@ -1,11 +1,9 @@
 <template>
   <div class="auth-page">
     Auth page
-    <p class="auth-page__preloader" v-text="$ml.get('preloader')" v-show="loading"></p>
-
     <div class="auth-page__forms">
-      <component :is="form" v-show="!loading"></component>
-      <button class="auth-page__link" type="button" v-text="buttonText"></button>
+      <component :is="form"></component>
+      <button class="auth-page__link" type="button" v-text="buttonText" @click="toggleForms()"></button>
     </div>
   </div>
 </template>
@@ -35,7 +33,7 @@ export default {
       }
 
       if (this.formMode === 'registration') {
-        return () => import('@/components/auth/formRegistration')
+        return () => import('@/components/auth/formRegistration.vue')
       }
 
       return null
@@ -59,18 +57,15 @@ export default {
     //     variables: { id }
     //   })
     // },
-    checkUID () {
-      console.log(this.$cookies.get('UID'))
-      if (this.$cookies.get('UID')) {
-        this.$router.push({ name: 'Calendar' })
-        // TODO @ this.$router.push({ name: 'Calendar', params: { userId: 'userId' } })
-      } else {
-        this.loading = false
+    toggleForms () {
+      if (this.formMode === 'login') {
+        this.formMode = 'registration'
+      }
+
+      if (this.formMode === 'registration') {
+        this.formMode = 'login'
       }
     }
-  },
-  mounted () {
-    this.checkUID()
   }
 }
 </script>

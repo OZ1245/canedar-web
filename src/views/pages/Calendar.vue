@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style lang="stylus">
-@import '../assets/styles/_variables'
-@import '../assets/styles/_mixins'
+@import '../../assets/styles/_variables'
+@import '../../assets/styles/_mixins'
 // .calendar-page
 </style>

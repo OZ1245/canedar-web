@@ -1,29 +1,35 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
-import Auth from '../views/Auth.vue'
-import Calendar from '../views/Calendar.vue'
+import Home from '../views/pages/Home.vue'
+import Auth from '../views/pages/Auth.vue'
+import Calendar from '../views/pages/Calendar.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
+    name: 'Home',
+    component: Home,
+    meta: {
+      layout: 'empty'
+    }
+  },
+  {
+    path: '/auth',
     name: 'Auth',
-    component: Auth
+    component: Auth,
+    meta: {
+      layout: 'empty'
+    }
   },
   {
     path: '/calendar',
     name: 'Calendar',
-    component: Calendar
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+    component: Calendar,
+    meta: {
+      layout: 'default'
+    }
   }
 ]
 

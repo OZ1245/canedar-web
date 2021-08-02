@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+// import { mapGetters } from 'vuex'
 
 export default {
   name: 'HomePage',
@@ -22,10 +22,10 @@ export default {
     //     this.$router.push({ name: 'Auth' })
     //   }
     // }
-    ...mapGetters(['user'])
+    // ...mapGetters(['user'])
+  },
+  mounted () {
+    this.$router.push({ name: 'Auth' })
   }
-  // mounted () {
-  //   this.checkUID()
-  // }
 }
 </script>

@@ -44,9 +44,10 @@ const router = new VueRouter({
 export default router
 
 router.beforeEach((to, from, next) => {
-  const isUserLoggedIn = store.getters.isAuthenticated
+  const isAuthenticated = store.getters.isAuthenticated
+
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!isUserLoggedIn) {
+    if (!isAuthenticated) {
       store.dispatch('logOut')
       next({
         path: '/login',

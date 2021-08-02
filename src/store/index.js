@@ -25,8 +25,36 @@ const moduleDate = {
   }
 }
 
+const moduleApollo = {
+  state: {
+    isAuthenticated: false
+  },
+  mutations: {
+    logOut (state) {
+      state.isAuthenticated = false
+    },
+    logIn (state) {
+      state.isAuthenticated = true
+    }
+  },
+  getters: {
+    isAuthenticated: state => {
+      return state.isAuthenticated
+    }
+  },
+  actions: {
+    logOut (context) {
+      context.commit('logOut')
+    },
+    logIn (context) {
+      context.commit('logIn')
+    }
+  }
+}
+
 export default new Vuex.Store({
   modules: {
-    date: moduleDate
+    date: moduleDate,
+    apollo: moduleApollo
   }
 })

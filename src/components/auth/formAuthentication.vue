@@ -18,13 +18,14 @@
       type="button"
       class="auth__submit"
       v-text="$ml.get('input_submit_text')"
-      @click="sendForm()"
+      @click="checkUser()"
     ></button>
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
+import gql from 'graphql-tag'
 
 export default {
   name: 'AuthForm',
@@ -35,11 +36,33 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['login']),
-    sendForm () {
-      this.login(this.authDetails)
-        .then(() => this.$router.push({ name: 'Calendar' }))
+    ...mapActions(['logIn']),
+    checkUser () {
+      this.$apollo.queries.checkUser.refetch()
     }
+  },
+  apollo: {
+    checkUser: {
+      query: gql`query ($name: String!, $password: String!) {
+        checkUser(name: $name, password: $password)
+      }`,
+      variables () {
+        return {
+          name: this.loginModel,
+          password: this.passwordModel
+        }
+      },
+      skip: true,
+      result (data) {
+        console.log(data)
+      },
+      update (data) {
+        console.log(data)
+      }
+    }
+  },
+  mounted () {
+    console.log(this)
   }
 }
 </script>

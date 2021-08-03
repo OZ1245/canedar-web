@@ -155,6 +155,7 @@ export default {
     position relative
     max-width 1200px
     border 1px solid cGreen
+    box-sizing border-box
 
   &__week, &__header
     display flex

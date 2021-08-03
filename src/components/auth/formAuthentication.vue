@@ -1,5 +1,9 @@
 <template>
   <div class="auth">
+    <div class="auth__alert-wrap" ref="alert" v-if="isError">
+      <alert :type="errorData.type" :message="errorData.message" />
+    </div>
+
     <input
       type="text"
       class="auth__field"
@@ -26,18 +30,26 @@
 <script>
 import { mapActions } from 'vuex'
 import gql from 'graphql-tag'
+import alert from '@/components/common/alert'
 
 export default {
   name: 'AuthForm',
+  components: {
+    alert
+  },
   data () {
     return {
       loginModel: '',
-      passwordModel: ''
+      passwordModel: '',
+      isError: false,
+      errorData: null
     }
   },
+  computed: {},
   methods: {
     ...mapActions(['logIn']),
     checkUser () {
+      this.$apollo.queries.checkUser.skip = false
       this.$apollo.queries.checkUser.refetch()
     }
   },
@@ -53,11 +65,17 @@ export default {
         }
       },
       skip: true,
-      result (data) {
-        console.log(data)
-      },
-      update (data) {
-        console.log(data)
+      result (o) {
+        if (o.data.checkUser) {
+          this.$store.dispatch('logIn')
+          this.$router.push({ name: 'Calendar' })
+        } else {
+          this.$set(this, 'isError', true)
+          this.$set(this, 'errorData', {
+            type: 'danger',
+            message: this.$ml.get('auth_login_error')
+          })
+        }
       }
     }
   },

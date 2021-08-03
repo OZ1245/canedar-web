@@ -45,13 +45,14 @@ export default router
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.isAuthenticated
+  console.log(store.getters)
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (!isAuthenticated) {
       store.dispatch('logOut')
       next({
-        path: '/login',
-        query: { redirect: to.fullPath }
+        path: '/auth'
+        // query: { redirect: to.fullPath }
       })
     } else {
       next()

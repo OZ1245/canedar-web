@@ -18,5 +18,7 @@ export default {
 <style lang="stylus">
 @import '../../assets/styles/_variables'
 @import '../../assets/styles/_mixins'
-// .calendar-page
+
+.calendar-page
+  width 100%
 </style>

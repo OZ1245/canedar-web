@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import moment from 'moment'
+import gql from 'graphql-tag'
 
 Vue.use(Vuex)
 
@@ -27,14 +28,17 @@ const moduleDate = {
 
 const moduleApollo = {
   state: {
-    isAuthenticated: false
+    isAuthenticated: false,
+    uid: ''
   },
   mutations: {
     logOut (state) {
       state.isAuthenticated = false
+      state.uid = ''
     },
-    logIn (state) {
+    logIn (state, uid) {
       state.isAuthenticated = true
+      state.uid = uid
     }
   },
   getters: {
@@ -47,7 +51,12 @@ const moduleApollo = {
       context.commit('logOut')
     },
     logIn (context) {
-      context.commit('logIn')
+      const uid = gql`
+
+      `
+      context.commit('logIn', {
+        uid:
+      })
     }
   }
 }

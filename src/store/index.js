@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import moment from 'moment'
-import gql from 'graphql-tag'
+import graphqlClient from '@/utils/graphql'
+import queries from '@/apollo/queries'
+import mutations from '@/apollo/mutations'
 
 Vue.use(Vuex)
 
@@ -29,33 +31,48 @@ const moduleDate = {
 const moduleApollo = {
   state: {
     isAuthenticated: false,
-    uid: ''
+    user: false
   },
   mutations: {
     logOut (state) {
       state.isAuthenticated = false
-      state.uid = ''
+      state.user = false
     },
-    logIn (state, uid) {
+    logIn (state, user) {
       state.isAuthenticated = true
-      state.uid = uid
+      state.user = user
     }
   },
   getters: {
-    isAuthenticated: state => {
-      return state.isAuthenticated
+    isAuthenticated ({ isAuthenticated, user }) {
+      if (isAuthenticated && user) {
+        const sid = graphqlClient.query({
+          query: queries.GET_USER,
+          variables: { id: user.id }
+        })
+        return (sid === user.sid)
+      } else return false
     }
   },
   actions: {
-    logOut (context) {
-      context.commit('logOut')
+    async logOut ({ commit, state: { user } }) {
+      await graphqlClient.mutate({
+        mutation: mutations.LOG_OUT,
+        variables: { id: user.id },
+        update: () => {
+          commit('logOut')
+        }
+      })
     },
-    logIn (context) {
-      const uid = gql`
-
-      `
-      context.commit('logIn', {
-        uid:
+    async logIn ({ commit }, id) {
+    // logIn (context, id) {
+      await graphqlClient.mutate({
+        mutation: mutations.LOG_IN,
+        variables: { id: id },
+        update: (_, { data: { sid } }) => {
+          commit('logIn', { sid: sid })
+          // context.commit('logIn', { sid: sid })
+        }
       })
     }
   }

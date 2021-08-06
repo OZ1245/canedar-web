@@ -1,13 +1,10 @@
-// import { ApolloServer } from 'apollo-server'
-// import { schema } from './schema.js'
-// import { resolvers } from './resolvers.js'
+const data = require('./data')
 const { ApolloServer, gql } = require('apollo-server')
 
 const schema = gql(`
 type Query {
   user(id: ID!): User
-  checkUser(name: String!, password: String!): Boolean
-  checkUID(id: ID!, uid: String!): Boolean
+  checkUser(name: String!, password: String!): User
 }
 
 type User {
@@ -15,25 +12,14 @@ type User {
   name: String!
   password: String!
   email: String!
-  uid: String!
+  sid: String!
 }
 
 type Mutation {
-  setUID(id: ID!): User
+  logIn(id: ID!): User
+  logOut(id: ID!): User
 }
 `)
-
-const data = {}
-
-data.users = [
-  {
-    id: 'test-1',
-    name: 'test',
-    password: 'testtest',
-    email: 'test@test.test',
-    uid: ''
-  }
-]
 
 const resolvers = {
   Query: {
@@ -43,14 +29,22 @@ const resolvers = {
     },
     checkUser (_, { name, password }, { dataSources }) {
       const user = dataSources.users.find(u => (u.name === name && u.password === password))
-      return !(!user)
+      return user
     }
   },
   Mutation: {
-    setUID: async (_, { id }, { dataSources }) => {
+    async logIn (_, { id }, { dataSources }) {
       const user = await dataSources.users.find(u => u.id === id)
       if (user) {
-        user.uid = Buffer.from(user.id + new Date().getTime()).toString('base64')
+        user.sid = Buffer.from(user.id + new Date().getTime()).toString('base64')
+        data.users.push(user)
+        return user
+      }
+    },
+    async logOut (_, { id }, { dataSources }) {
+      const user = await dataSources.users.find(u => u.id === id)
+      if (user) {
+        user.sid = ''
         data.users.push(user)
         return user
       }
@@ -67,6 +61,5 @@ const server = new ApolloServer({
 })
 
 server.listen(2001).then(({ url }) => {
-  console.log('API server running at localhost:2001')
-  console.log(url)
+  console.log('API server running at ' + url)
 })

@@ -29,7 +29,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import gql from 'graphql-tag'
+import queries from '@/apollo/queries'
 import alert from '@/components/common/alert'
 
 export default {
@@ -55,9 +55,7 @@ export default {
   },
   apollo: {
     checkUser: {
-      query: gql`query ($name: String!, $password: String!) {
-        checkUser(name: $name, password: $password)
-      }`,
+      query: queries.CHECK_USER,
       variables () {
         return {
           name: this.loginModel,
@@ -65,9 +63,9 @@ export default {
         }
       },
       skip: true,
-      result (o) {
-        if (o.data.checkUser) {
-          this.$store.dispatch('logIn')
+      update (o) {
+        if (o.checkUser) {
+          this.$store.dispatch('logIn', o.checkUser.id)
           this.$router.push({ name: 'Calendar' })
         } else {
           this.$set(this, 'isError', true)
@@ -79,9 +77,7 @@ export default {
       }
     }
   },
-  mounted () {
-    console.log(this)
-  }
+  mounted () {}
 }
 </script>
 

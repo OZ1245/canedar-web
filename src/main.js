@@ -4,7 +4,8 @@ import router from './router'
 import store from './store'
 import './ml'
 import VueCookies from 'vue-cookies'
-import ApolloClient from 'apollo-boost'
+// import ApolloClient from 'apollo-boost'
+import graphqlClient from '@/utils/graphql'
 import VueApollo from 'vue-apollo'
 
 // Page layouts
@@ -17,9 +18,7 @@ Vue.component('empty-layout', Empty)
 Vue.config.productionTip = false
 
 const apolloProvider = new VueApollo({
-  defaultClient: new ApolloClient({
-    uri: 'http://localhost:2001'
-  })
+  defaultClient: graphqlClient
 })
 
 Vue.use(VueCookies)

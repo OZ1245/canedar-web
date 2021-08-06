@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve --port 2000",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "api": "nodemon api/index.js"
   },
   "dependencies": {
     "apollo-boost": "^0.4.9",

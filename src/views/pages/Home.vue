@@ -8,11 +8,6 @@
 export default {
   name: 'HomePage',
   components: {},
-  methods: {},
-  mounted () {
-    setTimeout(() => {
-      this.$router.push({ name: 'Auth' })
-    }, 1000)
-  }
+  methods: {}
 }
 </script>

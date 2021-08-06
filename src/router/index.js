@@ -13,7 +13,8 @@ const routes = [
     name: 'Home',
     component: Home,
     meta: {
-      layout: 'empty'
+      layout: 'empty',
+      requiresAuth: true
     }
   },
   {
@@ -45,18 +46,18 @@ export default router
 
 router.beforeEach((to, from, next) => {
   const isAuthenticated = store.getters.isAuthenticated
-  console.log(store.getters)
 
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    // setTimeout(() => {
     if (!isAuthenticated) {
-      store.dispatch('logOut')
+      // store.dispatch('logOut')
       next({
         path: '/auth'
-        // query: { redirect: to.fullPath }
       })
     } else {
       next()
     }
+    // }, 1000)
   } else {
     next()
   }

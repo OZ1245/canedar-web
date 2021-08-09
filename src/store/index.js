@@ -76,7 +76,6 @@ const moduleApollo = {
       }
     },
     async logOut ({ commit, state: { user } }) {
-      console.log(user)
       if (user) {
         await graphqlClient.mutate({
           mutation: mutations.LOG_OUT,

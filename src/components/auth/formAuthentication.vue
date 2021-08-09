@@ -58,7 +58,7 @@ export default {
       query: queries.CHECK_USER,
       variables () {
         return {
-          name: this.loginModel,
+          login: this.loginModel,
           password: this.passwordModel
         }
       },

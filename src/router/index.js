@@ -26,6 +26,13 @@ const routes = [
     }
   },
   {
+    path: '/logout',
+    name: 'Logout',
+    meta: {
+      logout: true
+    }
+  },
+  {
     path: '/calendar',
     name: 'Calendar',
     component: Calendar,
@@ -48,7 +55,6 @@ const apolloInit = store.dispatch('apolloInit')
 
 router.beforeEach((to, from, next) => {
   apolloInit.then(() => {
-    console.log(store.getters.isAuthenticated)
     if (to.matched.some(record => record.meta.requiresAuth)) {
       if (!store.getters.isAuthenticated) {
         store.dispatch('logOut')
@@ -60,6 +66,13 @@ router.beforeEach((to, from, next) => {
       }
     } else {
       next()
+    }
+
+    if (to.matched.some(record => !!(record.meta.logout))) {
+      store.dispatch('logOut')
+      next({
+        path: '/auth'
+      })
     }
   })
 })

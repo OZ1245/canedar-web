@@ -34,7 +34,7 @@ export default {
         },
         {
           title: this.$ml.get('profile_menu_logout'),
-          href: '/'
+          href: '/logout'
         }
       ]
     }

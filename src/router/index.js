@@ -44,21 +44,22 @@ const router = new VueRouter({
 
 export default router
 
-router.beforeEach((to, from, next) => {
-  const isAuthenticated = store.getters.isAuthenticated
+const apolloInit = store.dispatch('apolloInit')
 
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // setTimeout(() => {
-    if (!isAuthenticated) {
-      // store.dispatch('logOut')
-      next({
-        path: '/auth'
-      })
+router.beforeEach((to, from, next) => {
+  apolloInit.then(() => {
+    console.log(store.getters.isAuthenticated)
+    if (to.matched.some(record => record.meta.requiresAuth)) {
+      if (!store.getters.isAuthenticated) {
+        store.dispatch('logOut')
+        next({
+          path: '/auth'
+        })
+      } else {
+        next()
+      }
     } else {
       next()
     }
-    // }, 1000)
-  } else {
-    next()
-  }
+  })
 })

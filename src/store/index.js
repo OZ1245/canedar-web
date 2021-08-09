@@ -37,41 +37,63 @@ const moduleApollo = {
     logOut (state) {
       state.isAuthenticated = false
       state.user = false
+      localStorage.removeItem('uid')
+      localStorage.removeItem('sid')
     },
     logIn (state, user) {
       state.isAuthenticated = true
       state.user = user
+      localStorage.setItem('uid', user.id)
+      localStorage.setItem('sid', user.sid)
+    },
+    init (state, { isAuthenticated, user }) {
+      state.isAuthenticated = isAuthenticated
+      state.user = user
     }
   },
   getters: {
-    isAuthenticated ({ isAuthenticated, user }) {
-      if (isAuthenticated && user) {
-        const sid = graphqlClient.query({
-          query: queries.GET_USER,
-          variables: { id: user.id }
-        })
-        return (sid === user.sid)
-      } else return false
+    isAuthenticated ({ isAuthenticated }) {
+      return isAuthenticated
     }
   },
   actions: {
-    async logOut ({ commit, state: { user } }) {
-      await graphqlClient.mutate({
-        mutation: mutations.LOG_OUT,
-        variables: { id: user.id },
-        update: () => {
-          commit('logOut')
+    async apolloInit ({ commit }) {
+      console.log(localStorage.getItem('uid'))
+      console.log(localStorage.getItem('sid'))
+      if (localStorage.getItem('uid') && localStorage.getItem('sid')) {
+        const o = await graphqlClient.query({
+          query: queries.GET_USER,
+          variables: { id: localStorage.getItem('uid') }
+        })
+        if (localStorage.getItem('sid') === o.data.user.sid) {
+          commit('init', { isAuthenticated: true, user: o.data.user })
         }
-      })
+      } else {
+        commit('init', { isAuthenticated: false, user: false })
+      }
+    },
+    async logOut ({ commit, state: { user } }) {
+      console.log(user)
+      if (user) {
+        await graphqlClient.mutate({
+          mutation: mutations.LOG_OUT,
+          variables: { id: user.id },
+          update () {
+            commit('logOut')
+          }
+        })
+      } else {
+        commit('logOut')
+      }
     },
     async logIn ({ commit }, id) {
-    // logIn (context, id) {
       await graphqlClient.mutate({
         mutation: mutations.LOG_IN,
         variables: { id: id },
-        update: (_, { data: { sid } }) => {
-          commit('logIn', { sid: sid })
-          // context.commit('logIn', { sid: sid })
+        update (_, { data: { logIn } }) {
+          if (logIn) {
+            commit('logIn', logIn)
+          }
         }
       })
     }

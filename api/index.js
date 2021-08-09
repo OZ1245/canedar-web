@@ -12,7 +12,7 @@ type User {
   name: String!
   password: String!
   email: String!
-  sid: String!
+  sid: String
 }
 
 type Mutation {

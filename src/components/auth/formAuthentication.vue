@@ -65,8 +65,9 @@ export default {
       skip: true,
       update (o) {
         if (o.checkUser) {
-          this.$store.dispatch('logIn', o.checkUser.id)
-          this.$router.push({ name: 'Calendar' })
+          this.$store.dispatch('logIn', o.checkUser.id).then(() => {
+            this.$router.push({ name: 'Calendar' })
+          })
         } else {
           this.$set(this, 'isError', true)
           this.$set(this, 'errorData', {

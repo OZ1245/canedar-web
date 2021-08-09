@@ -4,7 +4,7 @@ export default {
   LOG_IN: gql`
     mutation ($id: ID!) {
       logIn(id: $id) {
-        sid
+        id, name, email, sid
       }
     }
   `,

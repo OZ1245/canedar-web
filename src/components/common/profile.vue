@@ -11,6 +11,7 @@
 <script>
 import ProfileMenu from '@/components/common/profileMenu'
 import { MLBuilder } from 'vue-multilanguage'
+import { mapGetters } from 'vuex'
 
 export default {
   name: 'Profile',
@@ -19,10 +20,11 @@ export default {
   },
   data () {
     return {
-      userName: 'User Name'
+      // userName: 'User Name'
     }
   },
   computed: {
+    ...mapGetters(['userName']),
     mlhelloUser () {
       return new MLBuilder('helloUser').with('userName', this.userName)
     }

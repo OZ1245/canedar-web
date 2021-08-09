@@ -54,6 +54,9 @@ const moduleApollo = {
   getters: {
     isAuthenticated ({ isAuthenticated }) {
       return isAuthenticated
+    },
+    userName ({ user }) {
+      return user.name
     }
   },
   actions: {

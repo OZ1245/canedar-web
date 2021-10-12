@@ -1,8 +1,15 @@
 # calendar
 
 ## Project setup
+
+### Install Vue CLI
 ```
-npm install
+npm install @vue/cli
+```
+
+### Install all packages
+```
+npm i
 ```
 
 ### Compiles and hot-reloads for development
